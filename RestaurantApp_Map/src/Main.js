@@ -1,9 +1,11 @@
 import Axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
-import {SafeAreaView, View, FlatList, Text} from 'react-native';
+import {SafeAreaView, View, FlatList, Text, Modal} from 'react-native';
 // import Modal from 'react-native-modal';
 import MapView, { Marker } from 'react-native-maps';
 import {City, RestaurantDetail, SearchBar} from './components';
+
+import { mapStyle } from './styles'
 
 // filtreleme yapacağım için listenin orjinalini saklıyorum
 let originalList = [];
@@ -13,6 +15,8 @@ const Main = (props) => {
   // data geldi. datayı saklamam ve kullanıcıya liste formatında göstermem gerekiyor. Bunu useState ile yaparım
   const [cityList, setCityList] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [modalFlag, setModalFlag] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState("");
   const mapRef = useRef(null);
 
   const fetchCities = async () => {
@@ -67,11 +71,15 @@ const Main = (props) => {
 
     console.log(restaurants);  
   }
-
+  const onRestaurantSelect = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setModalFlag(true)
+  }
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
         <MapView
+          customMapStyle={mapStyle}
           ref={mapRef}
           style={{flex: 1}}
           initialRegion={{
@@ -99,6 +107,7 @@ const Main = (props) => {
                 }}
                 // title={marker.title}
                 // description={marker.description}
+                onPress={() => onRestaurantSelect(r)}
               />
             ))}
         </MapView>
@@ -111,6 +120,13 @@ const Main = (props) => {
           data={cityList}
           renderItem={({item}) => <City cityName={item} onSelect={() => onCitySelect(item)}/>}
         />
+
+          <RestaurantDetail
+            isVisible={modalFlag}
+            restaurant={selectedRestaurant}
+            onClose={() => setModalFlag(false)}
+          />
+
         </View>
       </View>
     </SafeAreaView>
