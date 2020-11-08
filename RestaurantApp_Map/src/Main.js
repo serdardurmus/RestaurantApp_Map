@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {SafeAreaView, View, FlatList, Text} from 'react-native';
 // import Modal from 'react-native-modal';
 import MapView, { Marker } from 'react-native-maps';
@@ -13,6 +13,7 @@ const Main = (props) => {
   // data geldi. datayı saklamam ve kullanıcıya liste formatında göstermem gerekiyor. Bunu useState ile yaparım
   const [cityList, setCityList] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const mapRef = useRef(null);
 
   const fetchCities = async () => {
     const {data} = await Axios.get("https://opentable.herokuapp.com/api/cities");
@@ -48,6 +49,22 @@ const Main = (props) => {
   const onCitySelect = async (city) => {
     const {data: {restaurants}} = await Axios.get("https://opentable.herokuapp.com/api/restaurants?city="+ city );
     setRestaurants(restaurants);
+
+    const restaurantsCoordinates = restaurants.map( res => {
+      return ({
+          latitude: res.lat,
+          longitude: res.lng,
+      });
+    });
+    mapRef.current.fitToCoordinates(restaurantsCoordinates, {
+      edgePadding: {
+        top: 300,
+        right: 25,
+        bottom: 25,
+        left: 25
+      },
+    });
+
     console.log(restaurants);  
   }
 
@@ -55,6 +72,7 @@ const Main = (props) => {
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
         <MapView
+          ref={mapRef}
           style={{flex: 1}}
           initialRegion={{
             // San Francisco
