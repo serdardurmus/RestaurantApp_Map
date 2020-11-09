@@ -7,7 +7,9 @@
   </h3>
 </div>
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
+
 - [Overview](#overview)
 - [Built With](#built-with)
 - [Features](#features)
@@ -17,9 +19,11 @@
 <!-- OVERVIEW -->
 ## Overview
 <img src="images/images(1).gif" height="500">
+
 ### Built With
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 - [React-native](https://reactnative.dev/)
+
 ## Features
 This app comprises use of Stack Navigation and RESTFUL Web APIs
 - User can either scroll or type letters into search bar to choose a city. 
@@ -27,6 +31,7 @@ This app comprises use of Stack Navigation and RESTFUL Web APIs
 - The user either scrolls or types letters to search bar to choose a restaurant. 
 - When the user taps on the image of the chosen restaurent, a new page showing the detailed information of the restaurant opens. 
 - User can be diverted to each restaurant's reservation URL by clicking on the "make a reservation" button.
+
 ## How To Use
 To use this application, the packages for navigation and for APIs (axios) should be installed prior to running the app. From your command line:
 ```
@@ -45,9 +50,11 @@ npm install axios
 - https://www.npmjs.com/package/react-native-axios
 - https://github.com/react-native-maps/react-native-maps
 ```
+
 ## Acknowledgements
 <!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For exmpale -->
 - [Source of APIs](https://opentable.herokuapp.com/)
+
 ## Contact
 - GitHub [SerdarDurmus](https://github.com/serdardurmus)
 - Linkedin [@Serdar Durmus](https://www.linkedin.com/in/serdardurmusj/)
